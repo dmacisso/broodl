@@ -4,7 +4,9 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
@@ -31,11 +33,11 @@ export const AuthProvider = ({ children }) => {
   function logout() {
     setUserDataObj(null);
     setCurrentUser(null);
-    return auth.signOut();
+    return signOut(auth);
   }
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
         //* set user to local context state
         setLoading(true);
@@ -57,7 +59,7 @@ export const AuthProvider = ({ children }) => {
         }
         setUserDataObj(firebaseData);
       } catch (error) {
-        console.error("ERROR: ",error.message);
+        console.error('ERROR: ', error.message);
       } finally {
         setLoading(false);
       }

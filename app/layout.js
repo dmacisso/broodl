@@ -3,6 +3,7 @@ import './globals.css';
 import Link from 'next/link';
 import { AuthProvider } from '@/context/AuthContext';
 import Head from './head';
+import Logout from '@/components/Logout';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 const fugaz = Fugaz_One({ subsets: ['latin'], weight: ['400'] });
@@ -20,7 +21,7 @@ export default function RootLayout({ children }) {
           Broodl
         </h1>
       </Link>
-      
+      <Logout />
     </header>
   );
 
@@ -32,8 +33,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-        
-      <Head  />
+      <Head />
       <AuthProvider>
         <body
           className={
@@ -41,13 +41,11 @@ export default function RootLayout({ children }) {
             openSans.className
           }
         >
-          <header>{header}</header>
+          {header}
           {children}
-          <footer>{footer}</footer>
+          {footer}
         </body>
       </AuthProvider>
-      
-
     </html>
   );
 }

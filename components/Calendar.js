@@ -59,7 +59,7 @@ export default function Calendar(props) {
   }
   }
 
-  console.log('selectedMonth:', selectedMonth);
+  // console.log('selectedMonth:', selectedMonth);
   const monthNow = new Date(
     selectedYear,
     Object.keys(months).indexOf(selectedMonth),

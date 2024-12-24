@@ -17,7 +17,7 @@ export default function Dashboard() {
   const now = new Date();
   //* MARK: Functions
 
-  function countValues(){
+  function countValues() {
     let total_number_days = 0;
     let sum_moods = 0;
     for (let year in data) {
@@ -29,14 +29,17 @@ export default function Dashboard() {
         }
       }
     }
-    return {num_days: total_number_days, average_mood: sum_moods/total_number_days};
+    return {
+      num_days: total_number_days,
+      average_mood: sum_moods / total_number_days,
+    };
   }
 
   const statuses = {
     ...countValues(),
     // num_days: 14,
     // average_mood: new Date().toDateString(),
-    time_remaining: `${23-now.getHours()}H ${60-now.getMinutes()}M`,
+    time_remaining: `${23 - now.getHours()}H ${60 - now.getMinutes()}M`,
   };
 
   async function handleSetMood(mood) {
@@ -53,6 +56,7 @@ export default function Dashboard() {
       setData(newData);
       //* update the global state (user data)
       setUserDataObj(newData);
+
       //* update the firestore (user data)
 
       const docRef = doc(db, 'users', currentUser.uid);
@@ -71,8 +75,7 @@ export default function Dashboard() {
       console.error('Failed to set data: ', error.message);
     }
   }
-// MARK: MOODS
-  
+  // MARK: MOODS
 
   const moods = {
     '&*@#$': '😭',
@@ -101,7 +104,8 @@ export default function Dashboard() {
                 {status.replaceAll('_', ' ')}
               </p>
               <p className={'text-base sm:text-lg ' + fugaz.className}>
-                {statuses[status]}{status === 'num_days' ? ' 🔥' : ''}
+                {statuses[status]}
+                {status === 'num_days' ? ' 🔥' : ''}
               </p>
             </div>
           );
